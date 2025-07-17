@@ -11,14 +11,14 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// ✅ Lấy đường dẫn thư mục gốc
+// ✅ Lấy đường dẫn thư mục hiện tại
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// ✅ Serve React build
+// ✅ Serve React build folder
 app.use(express.static(path.join(__dirname, "../client/dist")));
 
-// ✅ API Chat Route
+// ✅ API Chat
 app.post("/api/chat", async (req, res) => {
   const userMessage = req.body.message;
 
@@ -27,12 +27,14 @@ app.post("/api/chat", async (req, res) => {
   }
 
   try {
+    console.log("📨 Gửi request đến OpenRouter với message:", userMessage);
+
     const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
       method: "POST",
       headers: {
         "Authorization": `Bearer ${process.env.OPENROUTER_API_KEY}`,
         "HTTP-Referer": "https://thiepcuoi.pudfoods.com",
-        "X-Title": "ThiepCuoiOnlinePudFoods",
+        "X-Title": "Thiệp Cưới Online PudFoods",
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
@@ -48,6 +50,7 @@ app.post("/api/chat", async (req, res) => {
     });
 
     const data = await response.json();
+    console.log("✅ Response từ OpenRouter:", data);
 
     if (!data.choices || !data.choices[0]) {
       return res.status(500).json({ error: "No response from DeepSeek" });
@@ -56,12 +59,12 @@ app.post("/api/chat", async (req, res) => {
     res.json({ reply: data.choices[0].message.content });
 
   } catch (error) {
-    console.error(error);
+    console.error("❌ Lỗi gọi API:", error);
     res.status(500).json({ error: "API call failed" });
   }
 });
 
-// ✅ Bắt mọi request khác → trả React index.html
+// ✅ Trả React index.html cho các route khác
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "../client/dist/index.html"));
 });
