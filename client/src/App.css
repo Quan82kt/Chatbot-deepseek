@@ -1,42 +1,95 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+/* Container toàn màn hình */
+body, html {
+  margin: 0;
+  padding: 0;
+  background-color: #ffe6f0; /* nền hồng nhẹ */
+  font-family: Arial, sans-serif;
+}
+
+/* Khung chat chính */
+.chat-container {
+  width: 400px;  /* ✅ Fix rộng khung */
+  min-height: 550px; /* ✅ Fix chiều cao */
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  margin: 40px auto;
+  overflow: hidden;
+  position: relative;
+  border: 3px solid #ff80ab; /* Viền hồng đậm */
+}
+
+/* Header */
+.chat-header {
+  background: #ff80ab; /* Hồng đậm */
+  color: white;
   text-align: center;
+  padding: 15px;
+  font-size: 20px;
+  font-weight: bold;
+  border-bottom: 2px solid #f48fb1;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+/* Vùng tin nhắn */
+.chat-messages {
+  flex: 1;
+  padding: 15px;
+  overflow-y: auto;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Tin nhắn người dùng */
+.user-message {
+  text-align: right;
+  margin: 8px 0;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.user-message span {
+  background: #f8bbd0;
+  padding: 10px;
+  border-radius: 15px 15px 0 15px;
+  display: inline-block;
+  max-width: 70%;
 }
 
-.card {
-  padding: 2em;
+/* Tin nhắn bot */
+.bot-message {
+  text-align: left;
+  margin: 8px 0;
 }
 
-.read-the-docs {
-  color: #888;
+.bot-message span {
+  background: #fce4ec;
+  padding: 10px;
+  border-radius: 15px 15px 15px 0;
+  display: inline-block;
+  max-width: 70%;
+}
+
+/* Input */
+.chat-input {
+  display: flex;
+  border-top: 2px solid #f48fb1;
+}
+
+.chat-input input {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  outline: none;
+  font-size: 16px;
+}
+
+.chat-input button {
+  background: #ff80ab;
+  color: white;
+  border: none;
+  padding: 12px 18px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.chat-input button:hover {
+  background: #f06292;
 }

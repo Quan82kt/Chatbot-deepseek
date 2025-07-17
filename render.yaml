@@ -1,16 +1,17 @@
 services:
   - type: web
-    name: chatbot-deepseek
+    name: wedding-chat-server
     env: node
-    rootDir: server
     plan: free
-    buildCommand: |
-      npm install
-      npm install --prefix ../client
-      npm run build --prefix ../client
-    startCommand: npm start
+    buildCommand: cd server && npm install
+    startCommand: node index.js
     envVars:
-      - key: NODE_VERSION
-        value: 20
-      - key: RENDER_PKG_MANAGER
-        value: npm
+      - key: OPENROUTER_API_KEY
+        sync: false
+
+  - type: web
+    name: wedding-chat-client
+    env: node
+    plan: free
+    buildCommand: cd client && npm install && npm run build
+    startCommand: npm run preview --prefix client
