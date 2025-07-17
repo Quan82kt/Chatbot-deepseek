@@ -34,7 +34,7 @@ app.post("/api/chat", async (req, res) => {
       headers: {
         "Authorization": `Bearer ${process.env.OPENROUTER_API_KEY}`,
         "HTTP-Referer": "https://thiepcuoi.pudfoods.com",
-        "X-Title": "Thiệp Cưới Online PudFoods",
+        "X-Title": "thiep cuoi online pudfoods",
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
