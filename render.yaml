@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: chatbot-deepseek
+    env: node
+    rootDir: server
+    plan: free
+    buildCommand: |
+      npm install
+      npm install --prefix ../client
+      npm run build --prefix ../client
+    startCommand: npm start
+    envVars:
+      - key: NODE_VERSION
+        value: 20
+      - key: RENDER_PKG_MANAGER
+        value: npm
