@@ -2,12 +2,21 @@ import express from "express";
 import fetch from "node-fetch";
 import dotenv from "dotenv";
 import cors from "cors";
+import path from "path";
+import { fileURLToPath } from "url";
 
 dotenv.config();
 
 const app = express();
 app.use(cors());
 app.use(express.json());
+
+// ✅ Lấy đường dẫn thư mục gốc
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// ✅ Serve React build
+app.use(express.static(path.join(__dirname, "../client/dist")));
 
 // ✅ API Chat Route
 app.post("/api/chat", async (req, res) => {
@@ -22,7 +31,7 @@ app.post("/api/chat", async (req, res) => {
       method: "POST",
       headers: {
         "Authorization": `Bearer ${process.env.OPENROUTER_API_KEY}`,
-        "HTTP-Referer": "https://thiepcuoi.pudfoods.com", // domain của bạn
+        "HTTP-Referer": "https://thiepcuoi.pudfoods.com",
         "X-Title": "ThiepCuoiOnlinePudFoods",
         "Content-Type": "application/json"
       },
@@ -31,18 +40,7 @@ app.post("/api/chat", async (req, res) => {
         messages: [
           {
             role: "system",
-            content: `
-              Bạn là chatbot tư vấn thiệp cưới ONLINE. Luôn trả lời dựa trên thông tin sau:
-              ✅ Đây là thiệp điện tử (không phải thiệp giấy), gửi qua link cá nhân hóa.
-              ✅ Giá các gói dịch vụ:
-                - Gói Thường: 169.000đ
-                - Gói Pro: 289.000đ
-                - Gói VIP: 510.000đ
-                - Gói SVIP: 730.000đ
-              ✅ Luôn trả lời chính xác theo bảng giá này, không được đưa ra giá khác.
-              ✅ Hãy trả lời ngắn gọn, thân thiện, chuyên nghiệp.
-              ✅ Nếu khách có nhu cầu đặt thiệp, hãy nhắc: "Liên hệ Zalo 0967021887".
-            `
+            content: "Bạn là chatbot tư vấn thiệp cưới ONLINE. Gói thường 169k, Pro 289k, VIP 510k, SVIP 730k. Nếu khách cần đặt thiệp thì hướng dẫn liên hệ Zalo 0967021887."
           },
           { role: "user", content: userMessage }
         ]
@@ -61,6 +59,11 @@ app.post("/api/chat", async (req, res) => {
     console.error(error);
     res.status(500).json({ error: "API call failed" });
   }
+});
+
+// ✅ Bắt mọi request khác → trả React index.html
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../client/dist/index.html"));
 });
 
 const PORT = process.env.PORT || 3000;
