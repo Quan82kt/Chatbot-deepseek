@@ -33,7 +33,7 @@ function App() {
 
   return (
     <div className="chat-container">
-      <div className="chat-header">💌 Chatbot Thiệp Cưới</div>
+      <div className="chat-header">💌 Tư vấn Thiệp Cưới</div>
       <div className="chat-messages">
         {messages.map((msg, i) => (
           <div key={i} className={msg.sender === "user" ? "user-message" : "bot-message"}>
