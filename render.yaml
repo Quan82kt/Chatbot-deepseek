@@ -1,17 +1,16 @@
 services:
   - type: web
-    name: wedding-chat-server
+    name: wedding-chatbot
     env: node
     plan: free
-    buildCommand: cd server && npm install
-    startCommand: node index.js
+    region: singapore
+    buildCommand: |
+      cd client && npm install --include=dev && npm run build && cd ../server && npm install
+    startCommand: |
+      cd server && node index.js
     envVars:
+      - key: NODE_VERSION
+        value: 22
       - key: OPENROUTER_API_KEY
         sync: false
-
-  - type: web
-    name: wedding-chat-client
-    env: node
-    plan: free
-    buildCommand: cd client && npm install && npm run build
-    startCommand: npm run preview --prefix client
+    rootDir: .
