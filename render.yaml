@@ -5,9 +5,9 @@ services:
     plan: free
     region: singapore
     buildCommand: |
-      cd client && npm install --include=dev && npm run build && cd ../server && npm install
+      cd client && npm install --include=dev && npm run build
     startCommand: |
-      cd server && node index.js
+      node index.js
     envVars:
       - key: NODE_VERSION
         value: 22
