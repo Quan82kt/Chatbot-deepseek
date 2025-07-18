@@ -5,12 +5,12 @@ services:
     plan: free
     region: singapore
     buildCommand: |
-      npm install
-      cd client && npm install && npm run build
+      npm install       # ✅ Cài dependencies ở root (dotenv, express)
+      cd client && npm install --include=dev && npm run build
     startCommand: |
       node index.js
     envVars:
       - key: NODE_VERSION
         value: 22
       - key: OPENROUTER_API_KEY
-        sync: false # để bảo mật, không commit key thật vào repo
+        sync: false
