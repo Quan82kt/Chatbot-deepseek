@@ -17,7 +17,7 @@ function App() {
     setMessages([...newMessages, loadingMsg]);
 
     try {
-      const res = await fetch("http://localhost:3000/api/chat", {
+      const res = await fetch("https://chatbot-deepseek-n99f.onrender.com/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: input }),
