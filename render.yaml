@@ -5,12 +5,12 @@ services:
     plan: free
     region: singapore
     buildCommand: |
-      cd client && npm install --include=dev && npm run build
+      npm install
+      cd client && npm install && npm run build
     startCommand: |
       node index.js
     envVars:
       - key: NODE_VERSION
         value: 22
       - key: OPENROUTER_API_KEY
-        value: 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 # Thay bằng API key thật của bạn
-    rootDir: .
+        sync: false # để bảo mật, không commit key thật vào repo
