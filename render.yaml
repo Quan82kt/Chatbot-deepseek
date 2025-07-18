@@ -6,10 +6,10 @@ services:
     region: singapore
     buildCommand: |
       npm install
-      cd client && npm install --include=dev && npm run build
+      npm run build
     startCommand: node index.js
     envVars:
       - key: NODE_VERSION
         value: 22
       - key: OPENROUTER_API_KEY
-        sync: false  # Nhập giá trị trong Dashboard của Render, KHÔNG để trong code
+        sync: false
