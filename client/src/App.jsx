@@ -19,7 +19,6 @@ function App() {
     try {
       
       const res = await fetch("https://chatbot-deepseek-n99f.onrender.com/api/chat", {
-        b1d3ee601ecb6701e8b250a2af05984e7320da9c
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: input }),
